@@ -1,6 +1,8 @@
 # spacex-launches
 
 
+<h2>SPACEX LAUNCH INFORMATION APPLICATION</h2>
+
 <p align="float-left">
   <img src="https://github.com/erkutr-prog/spacex-launches/blob/main/src/assets/screenshots/MainPage.png" width="200" title="hover text">
   </p>
