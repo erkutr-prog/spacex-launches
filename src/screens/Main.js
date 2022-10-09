@@ -6,6 +6,7 @@ import {
   Dimensions,
   Image,
   StyleSheet,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useCallback, useState, useRef} from 'react';
 import FetchData from '../utils/FetchData';
@@ -19,6 +20,7 @@ export default function Main(props) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [isSearched, setSearched] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const offset = useRef(0);
 
   useEffect(() => {
@@ -50,9 +52,11 @@ export default function Main(props) {
     };
     const data = await FetchData(options, 'Launch');
     setLaunchData(data);
+    setLoading(false);
   });
 
   function search() {
+    setLoading(true);
     setSearched(true);
     offset.current = 0;
     fetchLaunches();
@@ -149,6 +153,16 @@ export default function Main(props) {
     );
   };
 
+  const renderEmptyResult = () => {
+    return (
+      <View style={styles.emptyScreenContainer}>
+        <Text style={{alignSelf: 'center'}}>
+          No Launches between selected dates.
+        </Text>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       {!isSearched ? (
@@ -168,12 +182,17 @@ export default function Main(props) {
           </View>
           <View style={{alignSelf: 'center'}}>{getSearchParams()}</View>
         </View>
+      ) : isLoading ? (
+        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+          <ActivityIndicator size={'small'} style={{alignSelf: 'center'}} />
+        </View>
       ) : (
         <FlatList
           data={launchData['docs']}
           style={{padding: 10}}
           ListHeaderComponent={getSearchParams}
           ListFooterComponent={() => LaunchListFooter()}
+          ListEmptyComponent={() => renderEmptyResult()}
           renderItem={item => (
             <LaunchCard
               onPressCallback={navigateToLaunchDetails}
@@ -247,4 +266,10 @@ const styles = StyleSheet.create({
     color: 'white',
     alignSelf: 'center',
   },
+  emptyScreenContainer: {
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    height: Dimensions.get('screen').height / 2
+  } 
 });
