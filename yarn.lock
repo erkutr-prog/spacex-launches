@@ -5701,10 +5701,10 @@
   dependencies:
     "prop-types" "^15.8.1"
 
-"react-native-navigation@^7.30.0-alpha.1":
-  "integrity" "sha512-G7Sq9d/sWHZ4oaJpuOTh5mAYo4ZPVoLv4JTD4ShgaB5MTyhO4FyF6i37SQE2F70QvGyu/PRJCT8+B3MmwfODlA=="
-  "resolved" "https://registry.npmjs.org/react-native-navigation/-/react-native-navigation-7.30.0-alpha.1.tgz"
-  "version" "7.30.0-alpha.1"
+"react-native-navigation@7.29.0":
+  "integrity" "sha512-kDNaS54VBTlcUWfBmBRzk71Mau47mwktzoxGw3Pb2KPHCfwoEI5SyOAsx22PIgCzBXCK8vOxKrHCHYw/TnnQvQ=="
+  "resolved" "https://registry.npmjs.org/react-native-navigation/-/react-native-navigation-7.29.0.tgz"
+  "version" "7.29.0"
   dependencies:
     "hoist-non-react-statics" "3.x.x"
     "lodash" "4.17.x"
