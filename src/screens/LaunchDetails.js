@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   Linking,
   StyleSheet,
+  TouchableOpacity
 } from 'react-native';
 import React, {useEffect, useState, useCallback} from 'react';
 import {Navigation} from 'react-native-navigation';
@@ -14,6 +15,7 @@ import FetchData from '../utils/FetchData';
 
 function LaunchDetails(props) {
   const [launchPadName, setLaunchPadName] = useState();
+  const [launchPadDetails, setLaunchPadDetails] = useState({});
   const [imageFetched, setImageFetched] = useState(false);
 
   useEffect(() => {
@@ -40,6 +42,7 @@ function LaunchDetails(props) {
       },
     };
     const response = await FetchData(options, 'Launchpad');
+    setLaunchPadDetails(response.docs[0])
     setLaunchPadName(response.docs[0].name);
   });
 
@@ -87,7 +90,16 @@ function LaunchDetails(props) {
 
       <View style={styles.launchpadContainer}>
         <Text style={{fontWeight: 'bold'}}>Mission Launchpad:</Text>
-        <Text>{'' + launchPadName}</Text>
+        <TouchableOpacity onPress={() => Navigation.push(props.componentId, {
+          component: {
+            name: 'PadDetails',
+            passProps: {
+              launchPadDetails
+            }
+          }
+        })}>
+          <Text>{' ' + launchPadName}</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.infoFieldContainer}>
